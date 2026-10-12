@@ -1,2 +1,0 @@
-# dos_esqueleto
-

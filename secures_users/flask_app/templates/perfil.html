@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Mi perfil{% endblock %}
+
+{% block contenido %}
+<section class="contenedor" style="max-width:680px;margin-inline:auto;">
+    <h1>Mi perfil</h1>
+    <p class="subtitulo">Consulta tu información personal.</p>
+
+    <div class="tarjeta">
+        <h2 style="margin-top:0;">{{ usuario.nombre }} {{ usuario.apellido }}</h2>
+        <p class="dato"><strong>Correo</strong>{{ usuario.email }}</p>
+        <p class="dato"><strong>Registro</strong>{{ usuario.created_at.strftime('%Y-%m-%d') }}</p>
+    </div>
+
+    <div class="acciones">
+        <a class="boton boton-peligro" href="{{ url_for('eliminar_usuario') }}"
+            onclick="return confirm('¿Eliminar tu cuenta? Esta acción no se puede deshacer.');">Eliminar mi cuenta</a>
+        <a class="boton boton-secundario" href="{{ url_for('listado_entidades') }}">Volver al inicio</a>
+    </div>
+</section>
+{% endblock %}

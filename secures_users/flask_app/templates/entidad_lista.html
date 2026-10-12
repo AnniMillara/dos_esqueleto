@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Listado{% endblock %}
+
+{% block contenido %}
+<section class="contenedor">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;">
+        <div>
+            <h1>Listado de elementos</h1>
+            <p class="subtitulo">Consulta y administra los registros.</p>
+        </div>
+        <a class="boton" href="{{ url_for('nueva_entidad') }}">Crear nuevo</a>
+    </div>
+
+    {% if entidades %}
+    <div class="tabla-contenedor">
+        <table>
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in entidades %}
+                <tr>
+                    <td>{{ e.titulo }}</td>
+                    <td>{{ e.autor_nombre }} {{ e.autor_apellido }}</td>
+                    <td>{{ e.created_at.strftime('%Y-%m-%d') }}</td>
+                    <td>
+                        <div class="acciones" style="margin-top:0;">
+                            <a class="boton boton-secundario"
+                                href="{{ url_for('detalle_entidad', id=e.id_entidad) }}">Ver</a>
+                            {% if e.usuario_id == session['id_usuario'] %}
+                            <a class="boton boton-secundario"
+                                href="{{ url_for('editar_entidad', id=e.id_entidad) }}">Editar</a>
+                            <a class="boton boton-peligro"
+                                href="{{ url_for('confirmar_eliminar_entidad', id=e.id_entidad) }}">Eliminar</a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="vacio">
+        <p>Todavía no hay elementos registrados.</p>
+        <a class="boton" href="{{ url_for('nueva_entidad') }}">Crear el primero</a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}

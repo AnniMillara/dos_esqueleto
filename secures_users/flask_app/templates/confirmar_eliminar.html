@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Confirmar eliminación{% endblock %}
+
+{% block contenido %}
+<section class="contenedor" style="max-width:680px;margin-inline:auto;">
+    <h1>Confirmar eliminación</h1>
+    <p>{{ mensaje }}</p>
+    <div class="acciones">
+        <a class="boton boton-peligro" href="{{ accion }}">Sí, eliminar</a>
+        <a class="boton boton-secundario" href="{{ cancelar }}">Cancelar</a>
+    </div>
+</section>
+{% endblock %}

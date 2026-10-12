@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Editar' if entidad else 'Nuevo' }}{% endblock %}
+
+{% block contenido %}
+<section class="contenedor" style="max-width:680px;margin-inline:auto;">
+    <h1>{{ 'Editar' if entidad else 'Nuevo' }} elemento</h1>
+    <p class="subtitulo">Completa los campos y guarda los cambios.</p>
+
+    <form class="formulario" method="post"
+        action="{{ url_for('modificar_entidad', id=entidad.id_entidad) if entidad else url_for('crear_entidad') }}">
+
+        <div class="campo">
+            <label for="titulo">Título</label>
+            <input id="titulo" name="titulo" type="text" value="{{ entidad.titulo if entidad else '' }}" required>
+        </div>
+
+        <div class="campo">
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" name="descripcion"
+                required>{{ entidad.descripcion if entidad else '' }}</textarea>
+        </div>
+
+        <div class="acciones">
+            <button type="submit">{{ 'Actualizar' if entidad else 'Guardar' }}</button>
+            <a class="boton boton-secundario" href="{{ url_for('listado_entidades') }}">Cancelar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

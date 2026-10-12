@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Mi aplicación{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <header class="barra">
+        <a class="marca" href="{{ url_for('inicio') }}">Mi aplicación</a>
+        <nav class="navegacion">
+            <a href="{{ url_for('listado_entidades') }}">Inicio</a>
+            {% if session.get('id_usuario') %}
+            <a href="{{ url_for('perfil') }}">Mi perfil</a>
+            <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+            {% else %}
+            <a href="{{ url_for('inicio') }}">Iniciar sesión</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+        {% if mensajes %}
+        {% for categoria, mensaje in mensajes %}
+        <div
+            class="mensaje {% if categoria == 'error' %}mensaje-error{% elif categoria == 'success' %}mensaje-exito{% endif %}">
+            {{ mensaje }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block contenido %}{% endblock %}
+    </main>
+
+    <footer>Mi aplicación · Plantilla base reutilizable</footer>
+</body>
+
+</html>
